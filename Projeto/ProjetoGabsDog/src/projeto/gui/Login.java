@@ -11,9 +11,8 @@ import projeto.modelo.Usuario;
  */
 public class Login extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Login
-     */
+    MainFrame enviaUsuario;
+    
     public Login() {
         initComponents();
         this.setLocationRelativeTo(null);
@@ -44,6 +43,7 @@ public class Login extends javax.swing.JFrame {
         jLabel3.setText("jLabel3");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Gabs Dog");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Login do Sistema", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 14))); // NOI18N
 
@@ -57,7 +57,7 @@ public class Login extends javax.swing.JFrame {
 
         txtSenha.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
 
-        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/projeto/gui/Login.png"))); // NOI18N
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/projeto/gui/imagens/Login 2.png"))); // NOI18N
         jLabel4.setText("jLabel4");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -84,15 +84,15 @@ public class Login extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(23, 23, 23)
                 .addComponent(jLabel4)
-                .addGap(45, 45, 45)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(36, 36, 36)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(txtSenha)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addContainerGap(38, Short.MAX_VALUE))
         );
 
         btnLogin.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
@@ -152,11 +152,16 @@ public class Login extends javax.swing.JFrame {
         
         if (retorno == true){
             Login.this.dispose();
-            MainFrame mainFrame = new MainFrame();
-            mainFrame.setLocationRelativeTo(null);
-            mainFrame.setVisible(true);
+            enviaUsuario = new MainFrame();
+            enviaUsuario.setLocationRelativeTo(null);
+            enviaUsuario.setVisible(true);
+            enviaUsuario.RecebeUsuario(txtNome.getText());
         } else 
             JOptionPane.showMessageDialog(rootPane, "Dados inválidos!");
+            txtNome.setText("");
+            txtSenha.setText("");
+        
+        Login.this.getRootPane().setDefaultButton(btnLogin);
         
     }//GEN-LAST:event_btnLoginActionPerformed
 
@@ -175,7 +180,7 @@ public class Login extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if ("Windows".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }

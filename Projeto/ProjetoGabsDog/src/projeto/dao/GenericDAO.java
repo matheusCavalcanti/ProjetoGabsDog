@@ -18,6 +18,42 @@ public abstract class GenericDAO<T extends Serializable> {
         return JPAUtil.getInstance().getEntityManager();
     }
     
+    public T findOne(String jpql, Object... params){
+        EntityManager manager = getEntityManager();
+        manager.getTransaction().begin();
+        
+        Query query = manager.createQuery(jpql);
+        
+        for (int i=0; i < params.length; i++){
+            query.setParameter(i+1, params[i]);
+        }
+        
+        T entity = (T)query.getSingleResult();
+        
+        manager.getTransaction().commit();
+        manager.close();
+        
+        return entity;
+    }
+    
+    public List<T> find(String jpql, Object... params){
+        EntityManager manager = getEntityManager();
+        manager.getTransaction().begin();
+        
+        Query query = manager.createQuery(jpql);
+        
+        for (int i=0; i < params.length; i++){
+            query.setParameter(i, params[i]);
+        }
+        
+        List<T> entities = query.getResultList();
+        
+        manager.getTransaction().commit();
+        manager.close();
+        
+        return entities;
+    }
+    
     public List<T> findAll() {
         EntityManager manager = getEntityManager();
         manager.getTransaction().begin();
@@ -32,7 +68,7 @@ public abstract class GenericDAO<T extends Serializable> {
         return entities;
     }
     
-    public T findById(Long id){
+    public T findById(Integer id){
         EntityManager manager = getEntityManager();
         manager.getTransaction().begin();
         
@@ -60,7 +96,7 @@ public abstract class GenericDAO<T extends Serializable> {
         manager.close();
     }
     
-    public void delete(Long id){
+    public void delete(Integer id){
         EntityManager manager = getEntityManager();
         manager.getTransaction().begin();
         manager.remove(manager.getReference(aClass, id));

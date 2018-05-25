@@ -1,15 +1,39 @@
 
 package projeto.gui;
 
+import projeto.dao.UsuarioDAO;
+import projeto.gui.administrador.BuscarFornecedor;
+import projeto.gui.administrador.CadastrarFornecedor;
+import projeto.gui.administrador.CadastrarProcedimento;
+import projeto.gui.administrador.CadastrarUsuario;
+import projeto.gui.administrador.RemoverUsuario;
+import projeto.gui.animal.BuscarAnimal;
+import projeto.gui.animal.CadastrarViaCli;
+import projeto.gui.cliente.BuscarCliente;
+import projeto.gui.cliente.CadastrarFrame;
+import projeto.gui.cliente.EditarFrame;
+import projeto.gui.cliente.RemoverCliente;
+import projeto.modelo.TipoUsuario;
+import projeto.modelo.Usuario;
+
 /**
  *
  * @author Matheus
  */
 public class MainFrame extends javax.swing.JFrame {
 
+    
+    
     /** Creates new form MainFrame */
     public MainFrame() {
         initComponents();
+        
+        setExtendedState(MainFrame.MAXIMIZED_BOTH);
+        
+        TelaFundo telaFundo = new TelaFundo();
+        
+        this.jpnTela.add(telaFundo);
+       
     }
 
     /** This method is called from within the constructor to
@@ -21,13 +45,26 @@ public class MainFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jpnTela = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        lblUsuario = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
-        menuCadastrar = new javax.swing.JMenuItem();
-        jMenu2 = new javax.swing.JMenu();
+        ClienteMenu = new javax.swing.JMenu();
+        buscarCliente = new javax.swing.JMenuItem();
+        clienteCadastrar = new javax.swing.JMenuItem();
+        clienteAlterar = new javax.swing.JMenuItem();
+        clienteRemover = new javax.swing.JMenuItem();
+        AnimalMenu = new javax.swing.JMenu();
+        buscarAnimal = new javax.swing.JMenuItem();
+        animalCadastrar = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
+        fornecedorBuscar = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
-        jMenu5 = new javax.swing.JMenu();
+        usuarioCadastrar = new javax.swing.JMenu();
+        cadastrarUsuario = new javax.swing.JMenuItem();
+        removerUsuario = new javax.swing.JMenuItem();
+        fornecedorCadastrar = new javax.swing.JMenuItem();
+        procedCadastrar = new javax.swing.JMenuItem();
         jMenu6 = new javax.swing.JMenu();
         jMenu7 = new javax.swing.JMenu();
 
@@ -35,38 +72,154 @@ public class MainFrame extends javax.swing.JFrame {
         setTitle("Gabs Dog");
         setBackground(new java.awt.Color(51, 204, 0));
 
+        jpnTela.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        jpnTela.setLayout(new java.awt.BorderLayout());
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jLabel1.setText("Bem Vindo,");
+
+        lblUsuario.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+
         jMenuBar1.setBackground(new java.awt.Color(0, 255, 102));
         jMenuBar1.setBorder(null);
         jMenuBar1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jMenuBar1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
-        jMenu1.setText("Cliente");
+        ClienteMenu.setText("Cliente");
+        ClienteMenu.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
-        menuCadastrar.setText("Cadastrar");
-        menuCadastrar.addActionListener(new java.awt.event.ActionListener() {
+        buscarCliente.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        buscarCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/projeto/gui/imagens/buscar.png"))); // NOI18N
+        buscarCliente.setText("Buscar Cliente");
+        buscarCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuCadastrarActionPerformed(evt);
+                buscarClienteActionPerformed(evt);
             }
         });
-        jMenu1.add(menuCadastrar);
+        ClienteMenu.add(buscarCliente);
 
-        jMenuBar1.add(jMenu1);
+        clienteCadastrar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        clienteCadastrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/projeto/gui/imagens/inserir.png"))); // NOI18N
+        clienteCadastrar.setText("Cadastrar");
+        clienteCadastrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                clienteCadastrarActionPerformed(evt);
+            }
+        });
+        ClienteMenu.add(clienteCadastrar);
 
-        jMenu2.setText("Animal");
-        jMenuBar1.add(jMenu2);
+        clienteAlterar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        clienteAlterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/projeto/gui/imagens/editar.png"))); // NOI18N
+        clienteAlterar.setText("Alterar");
+        clienteAlterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                clienteAlterarActionPerformed(evt);
+            }
+        });
+        ClienteMenu.add(clienteAlterar);
+
+        clienteRemover.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        clienteRemover.setIcon(new javax.swing.ImageIcon(getClass().getResource("/projeto/gui/imagens/remover.png"))); // NOI18N
+        clienteRemover.setText("Remover");
+        clienteRemover.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                clienteRemoverActionPerformed(evt);
+            }
+        });
+        ClienteMenu.add(clienteRemover);
+
+        jMenuBar1.add(ClienteMenu);
+
+        AnimalMenu.setText("Animal");
+        AnimalMenu.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+
+        buscarAnimal.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        buscarAnimal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/projeto/gui/imagens/buscar.png"))); // NOI18N
+        buscarAnimal.setText("Buscar Animal");
+        buscarAnimal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buscarAnimalActionPerformed(evt);
+            }
+        });
+        AnimalMenu.add(buscarAnimal);
+
+        animalCadastrar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        animalCadastrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/projeto/gui/imagens/inserir.png"))); // NOI18N
+        animalCadastrar.setText("Cadastrar");
+        animalCadastrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                animalCadastrarActionPerformed(evt);
+            }
+        });
+        AnimalMenu.add(animalCadastrar);
+
+        jMenuBar1.add(AnimalMenu);
 
         jMenu3.setText("Loja");
+        jMenu3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+
+        fornecedorBuscar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        fornecedorBuscar.setText("Buscar Fornecedor");
+        fornecedorBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fornecedorBuscarActionPerformed(evt);
+            }
+        });
+        jMenu3.add(fornecedorBuscar);
+
         jMenuBar1.add(jMenu3);
 
         jMenu4.setText("Relatório");
+        jMenu4.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jMenuBar1.add(jMenu4);
 
-        jMenu5.setText("Administrador");
-        jMenuBar1.add(jMenu5);
+        usuarioCadastrar.setText("Administrador");
+        usuarioCadastrar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+
+        cadastrarUsuario.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        cadastrarUsuario.setText("Cadastrar Usuario");
+        cadastrarUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cadastrarUsuarioActionPerformed(evt);
+            }
+        });
+        usuarioCadastrar.add(cadastrarUsuario);
+
+        removerUsuario.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        removerUsuario.setText("Remover Usuario");
+        removerUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                removerUsuarioActionPerformed(evt);
+            }
+        });
+        usuarioCadastrar.add(removerUsuario);
+
+        fornecedorCadastrar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        fornecedorCadastrar.setText("Cadastrar Fornecedor");
+        fornecedorCadastrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fornecedorCadastrarActionPerformed(evt);
+            }
+        });
+        usuarioCadastrar.add(fornecedorCadastrar);
+
+        procedCadastrar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        procedCadastrar.setText("Cadastrar Procedimento");
+        procedCadastrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                procedCadastrarActionPerformed(evt);
+            }
+        });
+        usuarioCadastrar.add(procedCadastrar);
+
+        jMenuBar1.add(usuarioCadastrar);
 
         jMenu6.setText("Configurações");
+        jMenu6.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jMenuBar1.add(jMenu6);
 
         jMenu7.setText("Sobre");
+        jMenu7.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jMenuBar1.add(jMenu7);
 
         setJMenuBar(jMenuBar1);
@@ -75,21 +228,120 @@ public class MainFrame extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 993, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jpnTela, javax.swing.GroupLayout.PREFERRED_SIZE, 750, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 365, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addGap(18, 18, 18)
+                .addComponent(lblUsuario)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 621, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(39, 39, 39)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
+                    .addComponent(lblUsuario))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
+                .addComponent(jpnTela, javax.swing.GroupLayout.PREFERRED_SIZE, 422, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(79, 79, 79))
         );
 
-        setBounds(0, 0, 1009, 679);
+        pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void menuCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuCadastrarActionPerformed
+    
+    public void RecebeUsuario(String Nome) {
+        Usuario usuario = new UsuarioDAO().findUsuario(Nome);
+        lblUsuario.setText(usuario.getNome());
+        
+        //Permissões 2 = Funcionário / 3 = Veterinário
+        if (usuario.getTipo().getId() == 2 || usuario.getTipo().getId() == 3) {
+                        
+            cadastrarUsuario.setEnabled(false);
+            
+            removerUsuario.setEnabled(false);
+            
+            fornecedorCadastrar.setEnabled(false);
+            
+            fornecedorBuscar.setEnabled(false);
+            
+            procedCadastrar.setEnabled(false);
+            
+        }
+        
+       
+        
+    }
+    
+    private void clienteCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clienteCadastrarActionPerformed
         CadastrarFrame frame = new CadastrarFrame();
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
-    }//GEN-LAST:event_menuCadastrarActionPerformed
+    }//GEN-LAST:event_clienteCadastrarActionPerformed
+
+    private void clienteAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clienteAlterarActionPerformed
+        EditarFrame frame = new EditarFrame();
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
+    }//GEN-LAST:event_clienteAlterarActionPerformed
+
+    private void clienteRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clienteRemoverActionPerformed
+        RemoverCliente frame = new RemoverCliente();
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
+    }//GEN-LAST:event_clienteRemoverActionPerformed
+
+    private void buscarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarClienteActionPerformed
+        BuscarCliente frame = new BuscarCliente();
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
+    }//GEN-LAST:event_buscarClienteActionPerformed
+
+    private void animalCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_animalCadastrarActionPerformed
+        CadastrarViaCli frame = new CadastrarViaCli();
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
+    }//GEN-LAST:event_animalCadastrarActionPerformed
+
+    private void buscarAnimalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarAnimalActionPerformed
+        BuscarAnimal frame = new BuscarAnimal();
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
+    }//GEN-LAST:event_buscarAnimalActionPerformed
+
+    private void cadastrarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastrarUsuarioActionPerformed
+        CadastrarUsuario frame = new CadastrarUsuario();
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
+    }//GEN-LAST:event_cadastrarUsuarioActionPerformed
+
+    private void removerUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removerUsuarioActionPerformed
+        RemoverUsuario frame = new RemoverUsuario();
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
+    }//GEN-LAST:event_removerUsuarioActionPerformed
+
+    private void fornecedorCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fornecedorCadastrarActionPerformed
+        CadastrarFornecedor frame = new CadastrarFornecedor();
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
+    }//GEN-LAST:event_fornecedorCadastrarActionPerformed
+
+    private void fornecedorBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fornecedorBuscarActionPerformed
+        BuscarFornecedor frame = new BuscarFornecedor();
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
+    }//GEN-LAST:event_fornecedorBuscarActionPerformed
+
+    private void procedCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_procedCadastrarActionPerformed
+        CadastrarProcedimento frame = new CadastrarProcedimento();
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
+    }//GEN-LAST:event_procedCadastrarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -120,6 +372,7 @@ public class MainFrame extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 new MainFrame().setVisible(true);
             }
@@ -127,15 +380,28 @@ public class MainFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenu AnimalMenu;
+    private javax.swing.JMenu ClienteMenu;
+    private javax.swing.JMenuItem animalCadastrar;
+    private javax.swing.JMenuItem buscarAnimal;
+    private javax.swing.JMenuItem buscarCliente;
+    private javax.swing.JMenuItem cadastrarUsuario;
+    private javax.swing.JMenuItem clienteAlterar;
+    private javax.swing.JMenuItem clienteCadastrar;
+    private javax.swing.JMenuItem clienteRemover;
+    private javax.swing.JMenuItem fornecedorBuscar;
+    private javax.swing.JMenuItem fornecedorCadastrar;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
-    private javax.swing.JMenu jMenu5;
     private javax.swing.JMenu jMenu6;
     private javax.swing.JMenu jMenu7;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem menuCadastrar;
+    private javax.swing.JPanel jpnTela;
+    private javax.swing.JLabel lblUsuario;
+    private javax.swing.JMenuItem procedCadastrar;
+    private javax.swing.JMenuItem removerUsuario;
+    private javax.swing.JMenu usuarioCadastrar;
     // End of variables declaration//GEN-END:variables
 
 }

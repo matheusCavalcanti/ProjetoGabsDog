@@ -1,5 +1,6 @@
 package projeto.modelo;
 
+import java.io.Serializable;
 import java.util.Calendar;
 import javax.persistence.Entity;
 import javax.persistence.Enumerated;
@@ -7,20 +8,25 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-public class Animal {
+public class Animal implements Serializable {
     
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Integer id_animal;
-    private String nome;
-    private String especie;
-    private String raca;
+    private String nome; 
+    @OneToOne
+    private Especie especie;
+    
+    @OneToOne
+    private Raca raca;
     private float peso;
     private String cor;
+    
     @Enumerated
     private TipoSexo sexo;
     private boolean castrado;
@@ -46,19 +52,19 @@ public class Animal {
         this.nome = nome;
     }
 
-    public String getEspecie() {
+    public Especie getEspecie() {
         return especie;
     }
 
-    public void setEspecie(String especie) {
+    public void setEspecie(Especie especie) {
         this.especie = especie;
     }
 
-    public String getRaca() {
+    public Raca getRaca() {
         return raca;
     }
 
-    public void setRaca(String raca) {
+    public void setRaca(Raca raca) {
         this.raca = raca;
     }
 
@@ -86,7 +92,7 @@ public class Animal {
         this.sexo = sexo;
     }
 
-    public boolean isCastrado() {
+    public boolean getCastrado() {
         return castrado;
     }
 
