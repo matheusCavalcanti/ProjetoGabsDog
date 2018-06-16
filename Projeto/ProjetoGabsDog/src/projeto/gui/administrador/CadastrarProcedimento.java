@@ -35,7 +35,16 @@ public class CadastrarProcedimento extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         cbTipo = new javax.swing.JComboBox<>();
         txtDesc = new javax.swing.JTextField();
+        txtQtde = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
         txtValor = new javax.swing.JTextField();
+        try{
+            javax.swing.text.MaskFormatter valor = new javax.swing.text.MaskFormatter("R$ ###,##");
+            txtValor = new javax.swing.JFormattedTextField(valor);
+        }
+        catch (Exception e){
+            System.out.println("Erro no textField");
+        }
         btnSalvar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
 
@@ -55,11 +64,16 @@ public class CadastrarProcedimento extends javax.swing.JFrame {
         jLabel2.setText("Descrição:");
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jLabel3.setText("Valor:");
+        jLabel3.setText("Quantidade:");
 
         cbTipo.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
 
         txtDesc.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+
+        txtQtde.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+
+        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jLabel4.setText("Valor:");
 
         txtValor.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
 
@@ -75,13 +89,15 @@ public class CadastrarProcedimento extends javax.swing.JFrame {
                         .addComponent(jLabel1))
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addComponent(jLabel3)
-                        .addComponent(jLabel2)))
+                        .addComponent(jLabel2))
+                    .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addGap(23, 23, 23)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtValor, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cbTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtDesc, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtValor, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(57, Short.MAX_VALUE))
+                    .addComponent(txtQtde, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -97,8 +113,12 @@ public class CadastrarProcedimento extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3)
+                    .addComponent(txtQtde, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
                     .addComponent(txtValor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(49, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         btnSalvar.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
@@ -130,7 +150,7 @@ public class CadastrarProcedimento extends javax.swing.JFrame {
                 .addComponent(btnSalvar)
                 .addGap(18, 18, 18)
                 .addComponent(btnCancelar)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(168, Short.MAX_VALUE))
         );
 
         layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnCancelar, btnSalvar});
@@ -140,7 +160,7 @@ public class CadastrarProcedimento extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSalvar)
                     .addComponent(btnCancelar))
@@ -169,13 +189,14 @@ public class CadastrarProcedimento extends javax.swing.JFrame {
         
         proced.setTipo(tipo);
         proced.setDescricao(txtDesc.getText());
-        proced.setValor(Float.parseFloat(txtValor.getText()));
+        proced.setValor(txtValor.getText());
         
         ProcedimentoDAO procedimentoDAO = new ProcedimentoDAO();
         procedimentoDAO.save(proced);
         JOptionPane.showMessageDialog(null, "Procedimento cadastrado com Sucesso!", "Sucesso!", JOptionPane.INFORMATION_MESSAGE);
         
         txtDesc.setText("");
+        txtQtde.setText("");
         txtValor.setText("");
     }//GEN-LAST:event_btnSalvarActionPerformed
 
@@ -221,8 +242,10 @@ public class CadastrarProcedimento extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField txtDesc;
+    private javax.swing.JTextField txtQtde;
     private javax.swing.JTextField txtValor;
     // End of variables declaration//GEN-END:variables
 }

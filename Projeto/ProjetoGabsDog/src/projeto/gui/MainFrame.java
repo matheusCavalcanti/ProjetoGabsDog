@@ -2,10 +2,11 @@
 package projeto.gui;
 
 import projeto.dao.UsuarioDAO;
-import projeto.gui.administrador.BuscarFornecedor;
+import projeto.gui.loja.BuscarFornecedor;
 import projeto.gui.administrador.CadastrarFornecedor;
 import projeto.gui.administrador.CadastrarProcedimento;
 import projeto.gui.administrador.CadastrarUsuario;
+import projeto.gui.administrador.Caixa;
 import projeto.gui.administrador.RemoverUsuario;
 import projeto.gui.animal.BuscarAnimal;
 import projeto.gui.animal.CadastrarViaCli;
@@ -13,6 +14,7 @@ import projeto.gui.cliente.BuscarCliente;
 import projeto.gui.cliente.CadastrarFrame;
 import projeto.gui.cliente.EditarFrame;
 import projeto.gui.cliente.RemoverCliente;
+import projeto.gui.loja.ListarProdutos;
 import projeto.modelo.TipoUsuario;
 import projeto.modelo.Usuario;
 
@@ -48,6 +50,7 @@ public class MainFrame extends javax.swing.JFrame {
         jpnTela = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         lblUsuario = new javax.swing.JLabel();
+        lblImagem = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         ClienteMenu = new javax.swing.JMenu();
         buscarCliente = new javax.swing.JMenuItem();
@@ -59,13 +62,14 @@ public class MainFrame extends javax.swing.JFrame {
         animalCadastrar = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         fornecedorBuscar = new javax.swing.JMenuItem();
+        produtosListar = new javax.swing.JMenuItem();
+        Caixa = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
         usuarioCadastrar = new javax.swing.JMenu();
         cadastrarUsuario = new javax.swing.JMenuItem();
         removerUsuario = new javax.swing.JMenuItem();
         fornecedorCadastrar = new javax.swing.JMenuItem();
         procedCadastrar = new javax.swing.JMenuItem();
-        jMenu6 = new javax.swing.JMenu();
         jMenu7 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -79,6 +83,8 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel1.setText("Bem Vindo,");
 
         lblUsuario.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+
+        lblImagem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/projeto/gui/imagens/DogCat.png"))); // NOI18N
 
         jMenuBar1.setBackground(new java.awt.Color(0, 255, 102));
         jMenuBar1.setBorder(null);
@@ -167,6 +173,24 @@ public class MainFrame extends javax.swing.JFrame {
         });
         jMenu3.add(fornecedorBuscar);
 
+        produtosListar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        produtosListar.setText("Listar Produtos");
+        produtosListar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                produtosListarActionPerformed(evt);
+            }
+        });
+        jMenu3.add(produtosListar);
+
+        Caixa.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        Caixa.setText("Caixa");
+        Caixa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CaixaActionPerformed(evt);
+            }
+        });
+        jMenu3.add(Caixa);
+
         jMenuBar1.add(jMenu3);
 
         jMenu4.setText("Relatório");
@@ -214,10 +238,6 @@ public class MainFrame extends javax.swing.JFrame {
 
         jMenuBar1.add(usuarioCadastrar);
 
-        jMenu6.setText("Configurações");
-        jMenu6.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jMenuBar1.add(jMenu6);
-
         jMenu7.setText("Sobre");
         jMenu7.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jMenuBar1.add(jMenu7);
@@ -229,24 +249,32 @@ public class MainFrame extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jpnTela, javax.swing.GroupLayout.PREFERRED_SIZE, 750, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 365, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1)
-                .addGap(18, 18, 18)
-                .addComponent(lblUsuario)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jpnTela, javax.swing.GroupLayout.PREFERRED_SIZE, 750, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(lblImagem))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel1)
+                        .addGap(18, 18, 18)
+                        .addComponent(lblUsuario)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(39, 39, 39)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addComponent(lblUsuario))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
-                .addComponent(jpnTela, javax.swing.GroupLayout.PREFERRED_SIZE, 422, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lblImagem))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(39, 39, 39)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(lblUsuario))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 80, Short.MAX_VALUE)
+                        .addComponent(jpnTela, javax.swing.GroupLayout.PREFERRED_SIZE, 422, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(79, 79, 79))
         );
 
@@ -270,6 +298,8 @@ public class MainFrame extends javax.swing.JFrame {
             fornecedorBuscar.setEnabled(false);
             
             procedCadastrar.setEnabled(false);
+            
+            produtosListar.setEnabled(false);
             
         }
         
@@ -343,6 +373,18 @@ public class MainFrame extends javax.swing.JFrame {
         frame.setVisible(true);
     }//GEN-LAST:event_procedCadastrarActionPerformed
 
+    private void produtosListarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_produtosListarActionPerformed
+        ListarProdutos frame = new ListarProdutos();
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
+    }//GEN-LAST:event_produtosListarActionPerformed
+
+    private void CaixaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CaixaActionPerformed
+        Caixa frame = new Caixa();
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
+    }//GEN-LAST:event_CaixaActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -381,6 +423,7 @@ public class MainFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu AnimalMenu;
+    private javax.swing.JMenuItem Caixa;
     private javax.swing.JMenu ClienteMenu;
     private javax.swing.JMenuItem animalCadastrar;
     private javax.swing.JMenuItem buscarAnimal;
@@ -394,12 +437,13 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
-    private javax.swing.JMenu jMenu6;
     private javax.swing.JMenu jMenu7;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jpnTela;
+    private javax.swing.JLabel lblImagem;
     private javax.swing.JLabel lblUsuario;
     private javax.swing.JMenuItem procedCadastrar;
+    private javax.swing.JMenuItem produtosListar;
     private javax.swing.JMenuItem removerUsuario;
     private javax.swing.JMenu usuarioCadastrar;
     // End of variables declaration//GEN-END:variables

@@ -321,6 +321,7 @@ public class BuscarAnimal extends javax.swing.JFrame {
             }
         }
         lblId.setText(String.valueOf(0));
+        lblNome.setText("");
         txtNome.setText("");
         
         DefaultTableModel model =(DefaultTableModel) tabelaAnimal.getModel();

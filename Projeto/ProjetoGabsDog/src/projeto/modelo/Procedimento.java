@@ -17,9 +17,14 @@ public class Procedimento implements Serializable {
     private String descricao;
     
     @ManyToOne
+    private Fornecedor fornecedor;
+    
+    @ManyToOne
     private TipoProced tipo;
     
-    private float valor;
+    private Integer quantidade;
+    
+    private String valor;
 
     public Integer getId() {
         return id;
@@ -37,6 +42,14 @@ public class Procedimento implements Serializable {
         this.descricao = descricao;
     }
 
+    public Fornecedor getFornecedor() {
+        return fornecedor;
+    }
+
+    public void setFornecedor(Fornecedor fornecedor) {
+        this.fornecedor = fornecedor;
+    }
+
     public TipoProced getTipo() {
         return tipo;
     }
@@ -45,11 +58,19 @@ public class Procedimento implements Serializable {
         this.tipo = tipo;
     }
 
-    public float getValor() {
+    public Integer getQuantidade() {
+        return quantidade;
+    }
+
+    public void setQuantidade(Integer quantidade) {
+        this.quantidade = quantidade;
+    }
+
+    public String getValor() {
         return valor;
     }
 
-    public void setValor(float valor) {
+    public void setValor(String valor) {
         this.valor = valor;
     }
     

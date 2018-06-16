@@ -4,9 +4,14 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Locale;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 import projeto.dao.AnimalDAO;
+import projeto.dao.AtendimentoDAO;
 import projeto.dao.ClienteDAO;
+import projeto.gui.atendimento.LancarProced;
 import projeto.modelo.Animal;
+import projeto.modelo.Atendimento;
 import projeto.modelo.Cliente;
 
 /**
@@ -15,9 +20,8 @@ import projeto.modelo.Cliente;
  */
 public class FichaPrincipal extends javax.swing.JFrame {
 
-    /**
-     * Creates new form FichaPrincipal
-     */
+    LancarProced enviaId;
+    
     public FichaPrincipal() {
         initComponents();
     }
@@ -72,13 +76,25 @@ public class FichaPrincipal extends javax.swing.JFrame {
         ComboAnimal = new javax.swing.JComboBox<>();
         jLabel19 = new javax.swing.JLabel();
         txtNasc = new javax.swing.JTextField();
+        jLabel21 = new javax.swing.JLabel();
+        lblIdA = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tabelaProced = new javax.swing.JTable();
         btnLancar = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Ficha Principal");
+        addWindowFocusListener(new java.awt.event.WindowFocusListener() {
+            public void windowGainedFocus(java.awt.event.WindowEvent evt) {
+                formWindowGainedFocus(evt);
+            }
+            public void windowLostFocus(java.awt.event.WindowEvent evt) {
+            }
+        });
         addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
             public void windowOpened(java.awt.event.WindowEvent evt) {
                 formWindowOpened(evt);
             }
@@ -280,6 +296,11 @@ public class FichaPrincipal extends javax.swing.JFrame {
 
         txtNasc.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
+        jLabel21.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel21.setText("ID:");
+
+        lblIdA.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -324,7 +345,11 @@ public class FichaPrincipal extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel18)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(ComboAnimal, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(ComboAnimal, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(32, 32, 32)
+                        .addComponent(jLabel21)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblIdA)))
                 .addContainerGap(40, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -333,7 +358,9 @@ public class FichaPrincipal extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel18)
-                    .addComponent(ComboAnimal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(ComboAnimal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel21)
+                    .addComponent(lblIdA))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtNomeA, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -358,19 +385,19 @@ public class FichaPrincipal extends javax.swing.JFrame {
                 .addGap(21, 21, 21))
         );
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tabelaProced.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "ID", "Descrição", "Valor", "Laudo"
+                "ID", "Descrição", "Valor", "Data", "Laudo"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.Float.class, java.lang.Object.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Boolean.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -381,10 +408,15 @@ public class FichaPrincipal extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tabelaProced);
 
         btnLancar.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         btnLancar.setText("Lançar");
+        btnLancar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLancarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -426,20 +458,43 @@ public class FichaPrincipal extends javax.swing.JFrame {
         Cliente cliente = new ClienteDAO().findById(Integer.parseInt(lblId.getText()));
         //cliente.setId(Integer.parseInt(lblId.getText()));
         
+        ComboAnimal.removeAllItems();
         List<Animal> animais = new AnimalDAO().findCli(cliente);
         animais.forEach((a) -> {
             ComboAnimal.addItem(a.getNome());
         });
         
-        Animal animal = new Animal();
-        animal.setNome(txtNomeA.getText());
-        ComboAnimal.setSelectedItem(animal);
+        //Animal animal = new AnimalDAO().findById(Integer.valueOf(lblIdA.getText()));
+        //ComboAnimal.setSelectedItem(animal);
+        
+        PopulaTabela();
     }//GEN-LAST:event_formWindowOpened
 
+    public void PopulaTabela() {
+        DefaultTableModel model =(DefaultTableModel) tabelaProced.getModel();
+        model.setNumRows(0);
+        
+        Animal animal = new AnimalDAO().findById(Integer.parseInt(lblIdA.getText()));
+        
+        List<Atendimento> atends = new AtendimentoDAO().findAtend(animal);
+        atends.forEach((a) -> {
+            model.addRow(new Object[] { a.getId(), a.getProced().getDescricao(), a.getValor(), a.getData() });
+        });
+    }
+    
     private void ComboAnimalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboAnimalActionPerformed
+        Cliente cliente = new ClienteDAO().findById(Integer.parseInt(lblId.getText()));
+        //cliente.setId(Integer.parseInt(lblId.getText()));
+        
+        ComboAnimal.removeAllItems();
+        List<Animal> animais = new AnimalDAO().findCli(cliente);
+        animais.forEach((a) -> {
+            ComboAnimal.addItem(a.getNome());
+        });
         
         Animal animal = new AnimalDAO().findAni(ComboAnimal.getSelectedItem().toString());
         
+        lblIdA.setText(String.valueOf(animal.getId_animal()));
         txtNomeA.setText(animal.getNome());
         txtEsp.setText(animal.getEspecie().getDescricao());
         txtRaca.setText(animal.getRaca().getDescricao());
@@ -451,7 +506,42 @@ public class FichaPrincipal extends javax.swing.JFrame {
                 animal.getNascimento().getTime().getMonth()) + "/" + animal.getNascimento().getWeekYear());
           
         DesabilitaCampos();
+        
+        PopulaTabela();
+        //tabelaProced.repaint();
     }//GEN-LAST:event_ComboAnimalActionPerformed
+
+    private void btnLancarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLancarActionPerformed
+        String x = String.valueOf(0);
+        if (lblIdA.getText().equals(x) || lblIdA.getText().isEmpty()){
+            JOptionPane.showMessageDialog(rootPane, "Escolha um Animal!", "Selecione", JOptionPane.WARNING_MESSAGE);
+        } else {
+            if (enviaId == null) {
+                enviaId = new LancarProced();
+                enviaId.setVisible(true);
+                enviaId.setLocationRelativeTo(null);
+                enviaId.recebe(Integer.parseInt(lblIdA.getText()));
+            } else {
+                enviaId.setVisible(true);
+                enviaId.setState(FichaPrincipal.NORMAL);
+                enviaId.recebe(Integer.parseInt(lblIdA.getText()));
+            }
+        }
+        
+        //DefaultTableModel model =(DefaultTableModel) tabelaProced.getModel();
+        PopulaTabela();
+        //tabelaProced.repaint();
+        
+        
+    }//GEN-LAST:event_btnLancarActionPerformed
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        ComboAnimal.removeAllItems();
+    }//GEN-LAST:event_formWindowClosed
+
+    private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
+        PopulaTabela();
+    }//GEN-LAST:event_formWindowGainedFocus
 
     public void recebe(int id){
         //lblId.setText(Integer.toString(id));
@@ -488,6 +578,7 @@ public class FichaPrincipal extends javax.swing.JFrame {
         
         Animal animal = new AnimalDAO().findById(id);
         
+        lblIdA.setText(String.valueOf(animal.getId_animal()));
         txtNomeA.setText(animal.getNome());
         txtEsp.setText(animal.getEspecie().getDescricao());
         txtRaca.setText(animal.getRaca().getDescricao());
@@ -589,6 +680,7 @@ public class FichaPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -599,8 +691,9 @@ public class FichaPrincipal extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JLabel lblId;
+    private javax.swing.JLabel lblIdA;
+    private javax.swing.JTable tabelaProced;
     private javax.swing.JTextField txtCastrado;
     private javax.swing.JTextField txtCelular;
     private javax.swing.JTextField txtCep;
