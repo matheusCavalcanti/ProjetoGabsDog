@@ -225,7 +225,7 @@ public class AlterarProduto extends javax.swing.JFrame {
         proced.setTipo(tipo);
         proced.setDescricao(txtDesc.getText());
         proced.setQuantidade(Integer.parseInt(txtQtde.getText()));
-        proced.setValor(txtValor.getText());
+        proced.setValor(Float.valueOf(txtValor.getText()));
         
         ProcedimentoDAO procedDAO = new ProcedimentoDAO();
         procedDAO.uptade(proced);
@@ -242,7 +242,7 @@ public class AlterarProduto extends javax.swing.JFrame {
         lblNome.setText(proced.getFornecedor().getNome());
         txtDesc.setText(proced.getDescricao());
         txtQtde.setText(String.valueOf(proced.getQuantidade()));
-        txtValor.setText(proced.getValor());    
+        txtValor.setText(String.valueOf(proced.getValor()));    
     }
     
     /**

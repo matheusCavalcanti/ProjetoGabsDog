@@ -203,7 +203,7 @@
             </Property>
           </Properties>
           <AuxValues>
-            <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="try{&#xd;&#xa;   javax.swing.text.MaskFormatter valor = new javax.swing.text.MaskFormatter(&quot;R$ ###,##&quot;);&#xd;&#xa;   txtValor = new javax.swing.JFormattedTextField(valor);&#xd;&#xa;}&#xd;&#xa;   catch (Exception e){&#xd;&#xa;    System.out.println(&quot;Erro no textField&quot;);&#xd;&#xa;}"/>
+            <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="try{&#xd;&#xa;   javax.swing.text.MaskFormatter valor = new javax.swing.text.MaskFormatter(&quot;###.##&quot;);&#xd;&#xa;   txtValor = new javax.swing.JFormattedTextField(valor);&#xd;&#xa;}&#xd;&#xa;   catch (Exception e){&#xd;&#xa;    System.out.println(&quot;Erro no textField&quot;);&#xd;&#xa;}"/>
           </AuxValues>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel5">

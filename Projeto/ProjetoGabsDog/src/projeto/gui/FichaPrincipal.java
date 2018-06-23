@@ -21,6 +21,7 @@ import projeto.modelo.Cliente;
 public class FichaPrincipal extends javax.swing.JFrame {
 
     LancarProced enviaId;
+    HistoricoFrame enviaAni;
     
     public FichaPrincipal() {
         initComponents();
@@ -81,6 +82,7 @@ public class FichaPrincipal extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tabelaProced = new javax.swing.JTable();
         btnLancar = new javax.swing.JButton();
+        btnHistorico = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Ficha Principal");
@@ -285,6 +287,11 @@ public class FichaPrincipal extends javax.swing.JFrame {
 
         ComboAnimal.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         ComboAnimal.setMaximumRowCount(15);
+        ComboAnimal.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                ComboAnimalItemStateChanged(evt);
+            }
+        });
         ComboAnimal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ComboAnimalActionPerformed(evt);
@@ -418,20 +425,31 @@ public class FichaPrincipal extends javax.swing.JFrame {
             }
         });
 
+        btnHistorico.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        btnHistorico.setText("Histórico");
+        btnHistorico.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnHistoricoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(55, 55, 55)
-                        .addComponent(btnLancar)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(55, 55, 55)
+                                .addComponent(btnLancar))
+                            .addComponent(btnHistorico))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 738, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -444,11 +462,14 @@ public class FichaPrincipal extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 9, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(105, 105, 105)
-                        .addComponent(btnLancar)))
-                .addContainerGap(36, Short.MAX_VALUE))
+                        .addComponent(btnLancar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnHistorico)))
+                .addContainerGap())
         );
 
         pack();
@@ -483,14 +504,14 @@ public class FichaPrincipal extends javax.swing.JFrame {
     }
     
     private void ComboAnimalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboAnimalActionPerformed
-        Cliente cliente = new ClienteDAO().findById(Integer.parseInt(lblId.getText()));
-        //cliente.setId(Integer.parseInt(lblId.getText()));
+        /*Cliente cliente = new ClienteDAO().findById(Integer.parseInt(lblId.getText()));
         
         ComboAnimal.removeAllItems();
         List<Animal> animais = new AnimalDAO().findCli(cliente);
         animais.forEach((a) -> {
             ComboAnimal.addItem(a.getNome());
         });
+        
         
         Animal animal = new AnimalDAO().findAni(ComboAnimal.getSelectedItem().toString());
         
@@ -508,7 +529,7 @@ public class FichaPrincipal extends javax.swing.JFrame {
         DesabilitaCampos();
         
         PopulaTabela();
-        //tabelaProced.repaint();
+        //tabelaProced.repaint();*/
     }//GEN-LAST:event_ComboAnimalActionPerformed
 
     private void btnLancarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLancarActionPerformed
@@ -536,12 +557,50 @@ public class FichaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnLancarActionPerformed
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
-        ComboAnimal.removeAllItems();
+        //ComboAnimal.removeAllItems();
     }//GEN-LAST:event_formWindowClosed
 
     private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
         PopulaTabela();
     }//GEN-LAST:event_formWindowGainedFocus
+
+    private void ComboAnimalItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_ComboAnimalItemStateChanged
+        Animal animal = new AnimalDAO().findAni(ComboAnimal.getSelectedItem().toString());
+        
+        lblIdA.setText(String.valueOf(animal.getId_animal()));
+        txtNomeA.setText(animal.getNome());
+        txtEsp.setText(animal.getEspecie().getDescricao());
+        txtRaca.setText(animal.getRaca().getDescricao());
+        txtCor.setText(animal.getCor());
+        txtPeso.setText(String.valueOf(animal.getPeso()));
+        txtSexo.setText(animal.getSexo().toString());
+        txtCastrado.setText(String.valueOf(animal.getCastrado()));
+        txtNasc.setText(String.valueOf(animal.getNascimento().getTime().getDay() + "/" +
+                animal.getNascimento().getTime().getMonth()) + "/" + animal.getNascimento().getWeekYear());
+          
+        DesabilitaCampos();
+        
+        PopulaTabela();
+    }//GEN-LAST:event_ComboAnimalItemStateChanged
+
+    private void btnHistoricoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHistoricoActionPerformed
+        String x = String.valueOf(0);
+        if (lblId.getText().equals(x) || lblId.getText().isEmpty()){
+            JOptionPane.showMessageDialog(rootPane, "Escolha um Animal!", "Selecione", JOptionPane.WARNING_MESSAGE);
+        } else {
+            if (enviaAni == null) {
+                enviaAni = new HistoricoFrame();
+                enviaAni.setVisible(true);
+                enviaAni.setLocationRelativeTo(null);
+                enviaAni.recebe(Integer.parseInt(lblIdA.getText()));
+            } else {
+                enviaAni.setVisible(true);
+                enviaAni.setState(FichaPrincipal.NORMAL);
+                enviaAni.recebe(Integer.parseInt(lblIdA.getText()));
+            }
+        }
+        
+    }//GEN-LAST:event_btnHistoricoActionPerformed
 
     public void recebe(int id){
         //lblId.setText(Integer.toString(id));
@@ -666,6 +725,7 @@ public class FichaPrincipal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> ComboAnimal;
+    private javax.swing.JButton btnHistorico;
     private javax.swing.JButton btnLancar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;

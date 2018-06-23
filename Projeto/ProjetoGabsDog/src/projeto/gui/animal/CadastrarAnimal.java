@@ -70,6 +70,7 @@ public class CadastrarAnimal extends javax.swing.JFrame {
         jTextField4.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Novo Animal");
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowOpened(java.awt.event.WindowEvent evt) {
                 formWindowOpened(evt);

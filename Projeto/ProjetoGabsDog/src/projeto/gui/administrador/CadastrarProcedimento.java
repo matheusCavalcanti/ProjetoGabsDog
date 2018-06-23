@@ -39,7 +39,7 @@ public class CadastrarProcedimento extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         txtValor = new javax.swing.JTextField();
         try{
-            javax.swing.text.MaskFormatter valor = new javax.swing.text.MaskFormatter("R$ ###,##");
+            javax.swing.text.MaskFormatter valor = new javax.swing.text.MaskFormatter("###.##");
             txtValor = new javax.swing.JFormattedTextField(valor);
         }
         catch (Exception e){
@@ -189,7 +189,7 @@ public class CadastrarProcedimento extends javax.swing.JFrame {
         
         proced.setTipo(tipo);
         proced.setDescricao(txtDesc.getText());
-        proced.setValor(txtValor.getText());
+        proced.setValor(Float.valueOf(txtValor.getText()));
         
         ProcedimentoDAO procedimentoDAO = new ProcedimentoDAO();
         procedimentoDAO.save(proced);

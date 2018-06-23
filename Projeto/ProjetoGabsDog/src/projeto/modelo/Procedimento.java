@@ -24,7 +24,7 @@ public class Procedimento implements Serializable {
     
     private Integer quantidade;
     
-    private String valor;
+    private float valor;
 
     public Integer getId() {
         return id;
@@ -66,11 +66,11 @@ public class Procedimento implements Serializable {
         this.quantidade = quantidade;
     }
 
-    public String getValor() {
+    public float getValor() {
         return valor;
     }
 
-    public void setValor(String valor) {
+    public void setValor(float valor) {
         this.valor = valor;
     }
     

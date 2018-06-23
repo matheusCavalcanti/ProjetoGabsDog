@@ -1,6 +1,5 @@
 package projeto.gui.atendimento;
 
-import com.toedter.calendar.JCalendar;
 import java.util.Date;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -9,7 +8,6 @@ import projeto.dao.AnimalDAO;
 import projeto.dao.AtendimentoDAO;
 import projeto.dao.ProcedimentoDAO;
 import projeto.dao.TipoProcedDAO;
-import projeto.gui.animal.CadastrarAnimal;
 import projeto.modelo.Animal;
 import projeto.modelo.Atendimento;
 import projeto.modelo.Procedimento;

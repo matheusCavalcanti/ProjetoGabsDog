@@ -6,7 +6,6 @@ import projeto.gui.loja.BuscarFornecedor;
 import projeto.gui.administrador.CadastrarFornecedor;
 import projeto.gui.administrador.CadastrarProcedimento;
 import projeto.gui.administrador.CadastrarUsuario;
-import projeto.gui.administrador.Caixa;
 import projeto.gui.administrador.RemoverUsuario;
 import projeto.gui.animal.BuscarAnimal;
 import projeto.gui.animal.CadastrarViaCli;
@@ -14,8 +13,8 @@ import projeto.gui.cliente.BuscarCliente;
 import projeto.gui.cliente.CadastrarFrame;
 import projeto.gui.cliente.EditarFrame;
 import projeto.gui.cliente.RemoverCliente;
+import projeto.gui.loja.EfetuarPagamento;
 import projeto.gui.loja.ListarProdutos;
-import projeto.modelo.TipoUsuario;
 import projeto.modelo.Usuario;
 
 /**
@@ -183,7 +182,7 @@ public class MainFrame extends javax.swing.JFrame {
         jMenu3.add(produtosListar);
 
         Caixa.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        Caixa.setText("Caixa");
+        Caixa.setText("Efetuar Pagamento");
         Caixa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 CaixaActionPerformed(evt);
@@ -240,6 +239,11 @@ public class MainFrame extends javax.swing.JFrame {
 
         jMenu7.setText("Sobre");
         jMenu7.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jMenu7.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenu7MouseClicked(evt);
+            }
+        });
         jMenuBar1.add(jMenu7);
 
         setJMenuBar(jMenuBar1);
@@ -380,10 +384,16 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_produtosListarActionPerformed
 
     private void CaixaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CaixaActionPerformed
-        Caixa frame = new Caixa();
+        EfetuarPagamento frame = new EfetuarPagamento();
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
     }//GEN-LAST:event_CaixaActionPerformed
+
+    private void jMenu7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu7MouseClicked
+        Sobre frame = new Sobre();
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
+    }//GEN-LAST:event_jMenu7MouseClicked
 
     /**
      * @param args the command line arguments
